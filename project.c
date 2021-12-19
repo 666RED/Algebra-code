@@ -88,8 +88,8 @@ int main(){
     printf("Dx = %f\n", dx);
     printf("Dy = %f\n", dy);
     printf("Dz = %f\n", dz);
-    if((int)det == 0){
-        if((int)dx == 0 && (int)dy == 0 && (int)dz == 0){
+    if(det == 0){
+        if(dx == 0 && dy == 0 && dz == 0){
             printf("\nThe system is dependent.\n");
         }else{
             printf("\nThe system is inconsistent.\n"); 
