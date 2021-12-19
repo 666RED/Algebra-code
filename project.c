@@ -83,21 +83,24 @@ int main(){
     dx = findDxyz(w, y ,z);
     dy = findDxyz(x, w, z);
     dz = findDxyz(x ,y, w);
+
+    printf("\nDeterminant = %f\n", det);
+    printf("Dx = %f\n", dx);
+    printf("Dy = %f\n", dy);
+    printf("Dz = %f\n", dz);
     if((int)det == 0){
-        printf("\nDeterminant = 0\n");
         if((int)dx == 0 && (int)dy == 0 && (int)dz == 0){
             printf("\nThe system is dependent.\n");
         }else{
             printf("\nThe system is inconsistent.\n"); 
         }
     }else{
-        printf("\nDeterminant  = %f\n", det);
         ansX = findValue(&dx, &det);
         ansY = findValue(&dy, &det);
         ansZ = findValue(&dz, &det);
-        printf("\nManufacturing price / quantity, x = %.2f / %.2f = RM %.2f\n", dx, det, ansX);
-        printf("\nDelivery fee / km, y = %.2f / %.2f = RM %.2f\n", dy, det, ansY);
-        printf("\nKeeping fee / day, z = %.2f / %.2f = RM %.2f\n", dz, det, ansZ);
+        printf("\nManufacturing price / quantity, x = %f / %f = RM %.2f\n", dx, det, ansX);
+        printf("\nDelivery fee / km, y = %f / %f = RM %.2f\n", dy, det, ansY);
+        printf("\nKeeping fee / day, z = %f / %f = RM %.2f\n", dz, det, ansZ);
         if(ansX < 0 || ansY < 0 || ansZ < 0){
             printf("\nx, y and z shouldn't less than 0, kindly check your inputs.\n");
         }
