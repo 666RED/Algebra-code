@@ -18,7 +18,7 @@ int main(){
     float dx, dy, dz;
     float x[5], y[5], z[5], w[5];
     float ansX, ansY, ansZ;
-    printf("\nx = Manufacturing price / quantity\ny = Delivery fee / km\nz = Keeping fee / day\n\n");
+    printf("\nx = Manufacturing price / quantity\ny = Shipping fee / 100g\nz = Keeping fee / day\n\n");
     for(int i = 0; i < 3; i++){
         printf("Equation %d\n", i + 1);
         do{
@@ -36,18 +36,18 @@ int main(){
         }while(result != 1 || x[i] > 100);
 
         do{
-            printf("Enter the delivery distance (km): ", i + 1);
+            printf("Enter the total weight (1 for 100g): ", i + 1);
             scanf("\n%[^\n]", input);
             result = validValue(input);
             if(result == 0){
                 printf("Invlid value.\n\n");
             }else{
                 y[i] = atof(input);
-                if(y[i] > 6000 || y[i] == 0){
+                if(y[i] > 300 || y[i] == 0){
                     printf("Invalid value.\n\n");
                 }
             }
-        }while(result != 1 || y[i] > 6000 || y[i] <= 0.0);
+        }while(result != 1 || y[i] > 6000 || y[i] == 0);
 
         do{
             printf("Enter the keeping days: ", i + 1);
@@ -99,7 +99,7 @@ int main(){
         ansY = findValue(&dy, &det);
         ansZ = findValue(&dz, &det);
         printf("\nManufacturing price / quantity, x = %f / %f = RM %.2f\n", dx, det, ansX);
-        printf("\nDelivery fee / km, y = %f / %f = RM %.2f\n", dy, det, ansY);
+        printf("\nShipping fee / 100g, y = %f / %f = RM %.2f\n", dy, det, ansY);
         printf("\nKeeping fee / day, z = %f / %f = RM %.2f\n", dz, det, ansZ);
         if(ansX < 0 || ansY < 0 || ansZ < 0){
             printf("\nx, y and z shouldn't less than 0, kindly check your inputs.\n");
