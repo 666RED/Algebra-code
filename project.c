@@ -9,6 +9,7 @@ void matrix(float*, float*, float*, float*);
 float findDeterminant(float*, float*, float*);
 float findDxyz(float*, float*, float*);
 float findValue(float*, float*);
+void printDet(float*, float*, float*, float*);
 
 int main(){
 
@@ -16,7 +17,7 @@ int main(){
     float det;
     char input[5];
     float dx, dy, dz;
-    float x[5], y[5], z[5], w[5];
+    float x[3], y[3], z[3], w[3];
     float ansX, ansY, ansZ;
     printf("\nx = Manufacturing price / quantity\ny = Shipping fee / 100g\nz = Keeping fee / day\n\n");
     for(int i = 0; i < 3; i++){
@@ -83,11 +84,8 @@ int main(){
     dx = findDxyz(w, y ,z);
     dy = findDxyz(x, w, z);
     dz = findDxyz(x ,y, w);
-
-    printf("\nDeterminant = %f\n", det);
-    printf("Dx = %f\n", dx);
-    printf("Dy = %f\n", dy);
-    printf("Dz = %f\n", dz);
+    printDet(&dx, &dy, &dz, &det);
+    
     if(det == 0){
         if(dx == 0 && dy == 0 && dz == 0){
             printf("\nThe system is dependent.\n");
@@ -102,7 +100,7 @@ int main(){
         printf("\nShipping fee / 100g, y = %f / %f = RM %.2f\n", dy, det, ansY);
         printf("\nKeeping fee / day, z = %f / %f = RM %.2f\n", dz, det, ansZ);
         if(ansX < 0 || ansY < 0 || ansZ < 0){
-            printf("\nx, y and z shouldn't less than 0, kindly check your inputs.\n");
+            printf("\nx, y and z shouldn't less than 0, kindly check your inputs.\n\n");
         }
     }
 }
@@ -175,4 +173,11 @@ float findValue(float* value, float* det){
     float result;
     result = *value / *det;
     return result;
+}
+void printDet(float* dx, float* dy, float* dz, float* det){
+
+    printf("\nDeterminant = %f\n", *det);
+    printf("Dx = %f\n", *dx);
+    printf("Dy = %f\n", *dy);
+    printf("Dz = %f\n", *dz);
 }
