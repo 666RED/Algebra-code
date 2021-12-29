@@ -20,7 +20,7 @@ int main(){
     float x[3], y[3], z[3], w[3];
     float ansX, ansY, ansZ;
     printf("\nx = Manufacturing price / quantity\ny = Shipping fee / 100g\nz = Keeping fee / day\n\n");
-    for(int i = 0; i < 3; i++){
+    for(int i = 0; i < 3; i++){// collect data for three equations
         printf("Equation %d\n", i + 1);
         do{
             printf("Enter the quantity of item: ", i + 1);
@@ -48,7 +48,7 @@ int main(){
                     printf("Invalid value.\n\n");
                 }
             }
-        }while(result != 1 || y[i] > 6000 || y[i] == 0);
+        }while(result != 1 || y[i] > 300 || y[i] == 0);
 
         do{
             printf("Enter the keeping days: ", i + 1);
@@ -79,12 +79,12 @@ int main(){
         }while(result != 1 || w[i] > 1000000 || w[i] < 5);
     }
     printf("\nIn matrix form: \n");
-    matrix(x, y, z, w);
+    matrix(x, y, z, w);//print the data in matrix form
     det = findDeterminant(x, y, z);
     dx = findDxyz(w, y ,z);
     dy = findDxyz(x, w, z);
     dz = findDxyz(x ,y, w);
-    printDet(&dx, &dy, &dz, &det);
+    printDet(&dx, &dy, &dz, &det);//display the values of dx, dy, dz and det
     
     if(det == 0){
         if(dx == 0 && dy == 0 && dz == 0){
