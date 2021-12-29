@@ -1,0 +1,151 @@
+START
+    SET i = 0
+    FOR(i < 3)
+        DO
+            READ input
+            CALL validQuantity(input)
+            SET result == validQuantity(input)
+            IF(result == 0)
+                DISPLAY "Invalid value."
+            ELSE
+                SET x[i] = atoi(input)
+                IF(x[i] > 100)
+                    DISPLAY "Maximum number of quantity is 100."
+                END IF
+            END IF
+        END WHILE(result != 1 or x[i] > 100)
+
+        DO 
+            READ input
+            CALL validValue(input)
+            SET result == validValue(input)
+            IF(result == 0)
+                DISPLAY "Invalid value."
+            ELSE    
+                SET y[i] = atof(input)
+                IF(y[i] > 300 or y[i] == 0)
+                    DISPLAY "Invalid value."
+                END IF
+            END IF
+        END WHILE(result != 1 or y[i] > 300 or y[i] == 0)
+
+        DO 
+            READ input
+            CALL validValue(input)
+            SET result == validValue(input)
+            IF(result == 0)
+                DISPLAY "Invalid value."
+            ELSE
+                SET z[i] = atof(input)
+                IF(z[i] > 31)
+                    DISPLAY "Maximum keeping days is 31."
+                END IF 
+            END IF 
+        END WHILE(result != 1 or z[i] > 31)
+
+        DO
+            READ input
+            CALL validValue(input)
+            SET result == validValue(input)
+            IF(result == 0)
+                DISPLAY "Invalid value."
+            ELSE    
+                SET w[i] =atof(input)
+                IF(w[i] > 1000000 or w[i] < 5)
+                    DISPLAY "Invalid value."
+                END IF
+            END IF
+        END WHILE(result != 1 or w[i] > 1000000 or w[i] < 5)
+        i++
+    END FOR
+
+    CALL matrix(x, y, z, w)
+    SET det = findDeterminant(x, y, z)
+    SET dx = findDxyz(w, y ,z)
+    SET dy = findDxyz(x, w, z)
+    SET dz = findDxyz(x ,y, w)
+    CALL printDet(pointer to dx, pointer to dy, pointer to dz, pointer to det)
+
+    IF(det == 0)
+        IF(dx == 0 and dy == 0 and dz == 0)
+            DISPLAY "The system is dependent."
+        ELSE   
+            DISPLAY "The system is inconsistent."
+        END IF
+    ELSE
+        SET ansX = findValue(pointer to dx, pointer to det)
+        SET ansY = findValue(pointer to dy, pointer to det)
+        SET ansZ = findValue(pointer to dz, pointer to det)
+        DISPLAY ansX, ansY, ansZ
+        IF(ansX < 0 or ansY < 0 or ansZ < 0)
+            DISPLAY "x, y and z shouldn't less than 0, kindly check your inputs."
+        END IF
+    END IF
+END
+
+FUNCTION validValue(value)
+    SET numberOfPeriod = 0
+    IF(First char is 0)
+        IF(string length of value != 1)
+            IF(Second char is not a period)
+                RETURN 0
+        ELSE
+            RETURN 1
+        END IF
+    ELSE IF(First char is period)
+        RETURN 0
+    END IF 
+
+    SET i = 0
+    FOR(i < string length of value)
+        IF(numberOfPeriod > 1)
+            RETURN 0
+        IF(value[i] is not a digit and value[i] is not a period)
+            RETURN 0
+        ELSE IF(value[i] is a period)
+            numberOfPeriod++
+        ELSE IF(It is final loop)
+            RETURN 1
+        END IF
+        i++
+    END FOR
+END FUNCTION
+
+FUNCTION validQuantity(quantity){
+    IF(First char is 0)
+        RETURN 0
+    END IF 
+
+    SET i = 0
+    FOR(i < string length of quantity)
+        IF(quantity[i] is not a digit)
+            RETURN 0
+        ELSE IF(It is final loop)
+            RETURN 1
+        END IF
+        i++
+    END FOR
+END FUNCTION
+
+FUNCTION matrix(pointer to x, pointer to y, pointer to z, pointer to w)
+    DISPLAY the user inputs in matrix form
+END FUNCTION
+
+FUNCTION findDeterminant(pointer to x, pointer to y, pointer to z)
+    SET result = (x[0] * ((y[1] * z[2]) - (y[2] * z[1]))) - (x[1] * ((y[0] * z[2]) - (y[2] * z[0]))) + (x[2] * ((y[0] * z[1]) - (y[1] * z[0])))
+    RETURN result
+END FUNCTION
+
+FUNCTION findDxyz(pointer to a1, pointer to a2, pointer to a3)
+    SET result = (a1[0] * ((a2[1] * a3[2]) - (a3[1] * a2[2]))) - (a2[0] * ((a1[1] * a3[2]) - (a3[1] * a1[2]))) + (a3[0] * ((a1[1] * a2[2]) - (a2[1] * a1[2])))
+    RETURN result
+END FUNCTION
+
+FUNCTION findValue(pointer to value, pointer to det)
+    SET result = *value / *det
+    RETURN result
+END FUNCTION
+
+FUNCTION printDet(pointer to dx, pointer to dy, pointer to dz, pointer to det)
+    DISPLAY determinant, dx, dy & dz
+END FUNCTION
