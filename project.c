@@ -27,7 +27,7 @@ int main(){
             scanf("\n%[^\n]", input);
             result = validQuantity(input);
             if(result == 0){
-                printf("Invlid value.\n\n");
+                printf("Invalid value.\n\n");
             }else{
                 x[i] = atoi(input);
                 if(x[i] > 100){
@@ -41,7 +41,7 @@ int main(){
             scanf("\n%[^\n]", input);
             result = validValue(input);
             if(result == 0){
-                printf("Invlid value.\n\n");
+                printf("Invalid value.\n\n");
             }else{
                 y[i] = atof(input);
                 if(y[i] > 300 || y[i] == 0){
